@@ -14,6 +14,16 @@ $(document).keydown(function(event) {
   }
 });
 
+// Detecting button clicks
+$('.btn').click(function(event) {
+  var userChosenColor = $(this).attr('id');
+
+  userClickedPattern.push(userChosenColor);
+
+  animatePress(userChosenColor);
+  playSound(userChosenColor);
+});
+
 function nextSequence() {
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColor = buttonColors[randomNumber];
@@ -33,4 +43,11 @@ function nextSequence() {
 function playSound(name) {
   var sound = new Audio('sounds/' + name + '.mp3');
   sound.play();
+}
+
+function animatePress(currentColor) {
+  $('#' + currentColor).addClass('pressed');
+  setTimeout(function() {
+    $('#' + currentColor).removeClass('pressed');
+  }, 100);
 }
